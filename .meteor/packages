@@ -9,4 +9,5 @@ insecure
 accounts-base
 iron:router
 http
+jparker:crypto-md5
 
