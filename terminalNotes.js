@@ -96,4 +96,48 @@ if (Meteor.isServer) {
             }
         });
 
+        ///////////////
+        // GET NOTE //
+        //////////////
+        this.route('getNote', {
+            where: 'server',
+            path: '/getNote/:username/:password/:title/',
+
+            action: function() {
+                var username = this.params.username;
+                var password = CryptoJS.MD5(this.params.password).toString()
+                var title = this.params.title;
+                var text = this.params.text;
+
+                var currentClient = Clients.findOne({
+                    username: username
+                });
+                if (currentClient.auth == password) {
+                    var note = Notes.findOne({
+                        userName: username,
+                        title: title
+                    });
+                    if (note == undefined) {
+                        this.response.writeHead(200, {
+                            'Content-Type': 'text/html'
+                        });
+                        this.response.end("NOTE NOT FOUND");
+                    } else {
+                        this.response.writeHead(200, {
+                            'Content-Type': 'text/html'
+                        });
+                        this.response.end(note.text);
+                    }
+                } else {
+                    this.response.writeHead(200, {
+                        'Content-Type': 'text/html'
+                    });
+                    this.response.end("ERROR. INCORECT PASSWORD.");
+                }
+            }
+        });
+
+
+
+    });
 }
