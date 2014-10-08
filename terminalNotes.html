@@ -5,10 +5,16 @@
 <body>
   <h1>Welcome to Meteor!</h1>
 
-  {{> hello}}
+  {{> notesList}}
 </body>
 
-<template name="hello">
-  <button>Click Me</button>
-  <p>You've pressed the button {{counter}} times.</p>
+
+
+<template name="notesList">
+helloworld
+{{#each notes}}
+	<h1>{{userName}}</h1>
+	<p><u>{{title}}</u></p>
+	<p>{{text}}</p>
+{{/each}}
 </template>
